@@ -14,6 +14,7 @@ module Dkim
       assert_equal 'rsa-sha256',                                   dkim_header['a']
       assert_equal 'brisbane',                                     dkim_header['s']
       assert_equal 'example.com',                                  dkim_header['d']
+      assert_equal '@example.com',                                 dkim_header['i']
       assert_equal 'relaxed/relaxed',                              dkim_header['c']
       assert_equal 'dns/txt',                                      dkim_header['q']
       assert_equal 'from:to:subject:date:message-id',              dkim_header['h']
@@ -26,6 +27,7 @@ module Dkim
     def test_overrides
       options = {
         :domain => 'example.org',
+        :identity => '@example.org',
         :selector => 'sidney',
         :time => Time.now,
         :signing_algorithm => 'rsa-sha1',
@@ -39,6 +41,7 @@ module Dkim
       assert_equal 'rsa-sha1',                        dkim_header['a']
       assert_equal 'sidney',                          dkim_header['s']
       assert_equal 'example.org',                     dkim_header['d']
+      assert_equal '@example.org',                    dkim_header['i']
       assert_equal 'simple/simple',                   dkim_header['c']
       assert_equal 'dns/txt',                         dkim_header['q']
       assert_equal "from:to:subject:date:message-id", dkim_header['h']
